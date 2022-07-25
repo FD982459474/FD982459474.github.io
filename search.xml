@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>VsCode搭建Django</title>
+      <link href="/2022/07/25/VsCode%E6%90%AD%E5%BB%BADjango/"/>
+      <url>/2022/07/25/VsCode%E6%90%AD%E5%BB%BADjango/</url>
+      
+        <content type="html"><![CDATA[<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="安装Django"><a href="#安装Django" class="headerlink" title="安装Django"></a>安装Django</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install django</span><br><span class="line">pip show django</span><br></pre></td></tr></table></figure><p><img src="/./../img/django%E6%88%AA%E5%9B%BE1.png"></p><h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><ol><li>进入项目root目录 打开dos命令行，运行命令创建工程项目<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">django-admin startproject your_django_project</span><br></pre></td></tr></table></figure></li><li>进入到django工程目录下中 cd your_django_project</li><li>通过venv创建python虚拟环境<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m venv venv</span><br></pre></td></tr></table></figure>得到一个venv环境<br><img src="/./../img/dj2.png"><br>将Django复制进该目录Script目录下</li></ol><h2 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h2><p>VsCode中搜索Django插件<br><img src="/../img/dj3.png"></p><h2 id="关联环境"><a href="#关联环境" class="headerlink" title="关联环境"></a>关联环境</h2><p>使用VsCode打开之前创建的 your_django_project<br>Shitf+Ctrl+P 选择带有虚拟环境(venv)的解释器<br><img src="/./../img/dj4.png"></p><h2 id="配置调试"><a href="#配置调试" class="headerlink" title="配置调试"></a>配置调试</h2><p>vscode左侧菜单栏切换到运行和调试，点击创建 launch.json 文件<br>选择python<br><img src="/./img/../../img/dj5.png"><br>选择Django<br><img src="/./../img/dj6.png"><br>启动运行即可运行服务<br><img src="/./img/../../img/dj7.png"></p><h1 id="manage常用指令"><a href="#manage常用指令" class="headerlink" title="manage常用指令"></a>manage常用指令</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#从数据库删除所有数据</span><br><span class="line">python ./manage.py flush</span><br><span class="line"></span><br><span class="line">#检查创建新的迁移</span><br><span class="line">python ./manage.py makemigrations</span><br><span class="line"></span><br><span class="line">#同步模型状态和迁移</span><br><span class="line">python ./manage.py migrate</span><br><span class="line"></span><br><span class="line">#进入数据库shell模式</span><br><span class="line">python ./manage.py dbshell</span><br><span class="line"></span><br><span class="line">#runserver</span><br><span class="line">python ./manage.py runserver 127.0.0.1:8080</span><br><span class="line"></span><br><span class="line">#startapp</span><br><span class="line">python ./manage.py startapp project_name</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 环境搭建 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git将本地文件推送到远程仓库</title>
       <link href="/2022/07/25/%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
       <url>/2022/07/25/%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
