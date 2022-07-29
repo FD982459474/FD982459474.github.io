@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>CentOS 7安装与网络解决</title>
+      <link href="/2022/07/30/%E5%8D%9A%E5%AE%A2/CentOS/"/>
+      <url>/2022/07/30/%E5%8D%9A%E5%AE%A2/CentOS/</url>
+      
+        <content type="html"><![CDATA[<h2 id="CentOS安装"><a href="#CentOS安装" class="headerlink" title="CentOS安装"></a>CentOS安装</h2><h3 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h3><p>选择阿里云镜像进行OS下载: <a href="http://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/">http://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/</a></p><p>选择DVD.ios文件进行下载</p><h3 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h3><ul><li><p>安装系统很简单,一直下一步就可以 注意切换一下盘符即可</p></li><li><p>进入系统界面后,点一下磁盘检查,之后可以直接下一步</p></li><li><p>配置一下root账户密码即可</p></li><li><p>配置完成后即可重启进入系统</p></li><li><p>输入用户名和密码后正式进入系统</p></li></ul><h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看防火墙状态</span><br><span class="line">systemctl stauts firewall.service</span><br><span class="line"></span><br><span class="line">关闭防火墙</span><br><span class="line">systemctl stop firewall.service</span><br><span class="line"></span><br><span class="line">永久关闭防火墙</span><br><span class="line">systemctl disable firewall.service</span><br></pre></td></tr></table></figure><h3 id="配置网路"><a href="#配置网路" class="headerlink" title="配置网路"></a>配置网路</h3><ul><li>首先查看VMware自动设置的网段和网关<ul><li>点击编辑 虚拟网路编辑器 找到VMware8</li><li><img src="/../../img/CentOS7%E6%88%AA%E5%9B%BE/1.png"></li><li><strong>记下对应的子网IP,子网掩码,点击NAT设置</strong></li><li><img src="/../../img/CentOS%E6%88%AA%E5%9B%BE/../CentOS7%E6%88%AA%E5%9B%BE/2.png"></li><li><strong>注意要与本机的网关网段一样 但不要和子网IP和本机网关重复</strong></li><li>设置好后记下网关IP,子掩码,子网IP和本机网关</li></ul></li><li>在系统内 <strong>(大小写不可忽略)</strong><ul><li>输入指令: vi &#x2F;etc&#x2F;sysonfig&#x2F;network-scripts&#x2F;ifcfg-ens33</li><li><img src="/../../img/CentOS7%E6%88%AA%E5%9B%BE/3.png"></li><li>设置以下几个东西 i进入vi插入模式  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">设置获取静态IP</span><br><span class="line">BOOTPROTO = static</span><br><span class="line">设置网路开启状态</span><br><span class="line">ONBOOT = yes</span><br><span class="line">设置静态IP 注意这里的IP不要和网关和子网IP重复,但网段要相同,这里应该设置为192.168.31.3-255,但不要和本机IPV4地址重复</span><br><span class="line">IPADDR = 192.168.31.3</span><br><span class="line">设置子掩码 为网路编辑器中查到的子掩码</span><br><span class="line">NETMASK = 255.255.255.0</span><br><span class="line">设置子掩码位数长度</span><br><span class="line">PREFIX = 24</span><br><span class="line">设置网关 为网路编辑器中查到的网关IP</span><br><span class="line">GATEWAY = 192.168.31.2</span><br><span class="line">设置DNS解析</span><br><span class="line">DNS1 = 114.114.114.114</span><br></pre></td></tr></table></figure></li><li>配置完成后ESC, shift+: , wq保持退出</li><li>配置项如下所示  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">BOOTPROTO = static</span><br><span class="line">ONBOOT = yes</span><br><span class="line">IPADDR = 192.168.31.3</span><br><span class="line">NETMASK = 255.255.255.0</span><br><span class="line">PREFIX = 24</span><br><span class="line">GATEWAY = 192.168.31.2</span><br><span class="line">DNS1 = 114.114.114.114</span><br></pre></td></tr></table></figure></li><li><strong>注 非必要项可以删除 防止干扰  见上上上图</strong> </li><li>配置完成后重启网络</li><li><pre><code class="shell">  systemctl restart network.service  或者  service network restart</code></pre></li><li><em>如发现无法进行重启,直接重启虚拟机,再重启网络服务即可</em></li></ul></li><li><strong>有必要插播的话,主机的所有东西都不用动! 不用动!</strong><ul><li>网路测试<ul><li>虚拟机<ul><li>ping <a href="http://www.baidu.com/">www.baidu.com</a> 网路正常</li></ul></li><li>主机<ul><li>正常上网检查即可</li></ul></li></ul></li><li>主机虚拟机互通测试<ul><li>虚拟机<ul><li>ping 192.168.31.108 有包发送则正常</li></ul></li><li>主机<ul><li>ping 192.168.31.3 收包则正常</li></ul></li></ul></li></ul></li></ul><h3 id="MobaXterm连接虚拟机"><a href="#MobaXterm连接虚拟机" class="headerlink" title="MobaXterm连接虚拟机"></a>MobaXterm连接虚拟机</h3><h6 id="需要虚拟机网络正常"><a href="#需要虚拟机网络正常" class="headerlink" title="需要虚拟机网络正常"></a>需要虚拟机网络正常</h6><ul><li>新建Session 填入IP地址 输入用户名密码即可连接</li><li><img src="/../../img/CentOS7%E6%88%AA%E5%9B%BE/4.png"></li><li><em>出现 Network error: Connection timed out问题</em><ul><li>首先看windows的Vmware的服务是否全是自动开启,若是 看下一步</li><li>找到Windows Defender防火墙 打开设置 关闭所有的防火墙</li><li>返回MobaXterm重新连接</li><li>进入root目录输入 chkconfig iptables off (永久性关闭防火墙)<ul><li>若报错 则先安装services : yum install iptables-services</li></ul></li><li>回到Windows Defender设置,打开所有的防火墙</li><li>若还无法解决<ul><li>检查是否禁用了服务 <ul><li>FLYSVR</li><li>域登录服务</li><li>交互式服务对话框检测服务</li><li>VMware虚拟机网络的动态IP配置服务</li></ul></li></ul></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> liunx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 踩坑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Excel相关操作</title>
       <link href="/2022/07/27/%E5%8D%9A%E5%AE%A2/Excel/"/>
       <url>/2022/07/27/%E5%8D%9A%E5%AE%A2/Excel/</url>
