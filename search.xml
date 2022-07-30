@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>GitLib安装</title>
+      <link href="/2022/07/30/%E5%8D%9A%E5%AE%A2/GitLab%E5%AE%89%E8%A3%85/"/>
+      <url>/2022/07/30/%E5%8D%9A%E5%AE%A2/GitLab%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h2 id="GitLib安装"><a href="#GitLib安装" class="headerlink" title="GitLib安装"></a>GitLib安装</h2><ul><li>安装相关依赖<br>yum -y install policycoreutils openssh-server openssh-clients postfix</li><li>启动ssh服务并设置为开机启动<br>systemctl enable sshd &amp;&amp; systemctl start sshd</li><li>设置postfix开机启动,,postfix支持gitlab发信功能<br>systemctl enable postfix &amp;&amp; systemctl start postfix</li><li>开放ssh以及http服务,然后重新加载防火墙列表<ul><li>firewall-cmd –add-service&#x3D;ssh –permanent</li><li>firewall-cmd –add-service&#x3D;http –permanent</li><li>firewall-cmd –reload</li><li>关闭防火墙则不需要做这个操作</li></ul></li><li>下载gitlab包并且安装<ul><li>wget <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-12.4.2-ce.0.el7.x86_64.rpm">https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-12.4.2-ce.0.el7.x86_64.rpm</a></li><li>rpm -i gitlab-ce-12.4.2-ce.0.el7.x86_64.rpm</li></ul></li><li>修改gitlab访问地址和端口,改为82<ul><li>vim &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb</li><li>external_url”<a href="http://192.168.31.100:82&quot;">http://192.168.31.100:82&quot;</a></li><li>nginx[‘listen_port’] &#x3D; 82</li></ul></li><li>重新配置及启动gitlab<ul><li>gitlab-ctl reconfigure (耗时较久)</li><li>gitlab-ctl restart</li></ul></li><li>把端口加入到防火墙内(关闭防火墙则不需要做这个操作)<ul><li>firewall-cmd –zone&#x3D;public –add-port&#x3D;82&#x2F;tcp –permanent</li><li>firewall-cmd –reload</li></ul></li><li>登录 修改密码<ul><li>192.168.31.100:82</li><li>修改密码<ul><li>root123456</li></ul></li><li>重登录<ul><li>root</li><li>root123456</li></ul></li></ul></li></ul><h2 id="添加组-创建用户-创建项目"><a href="#添加组-创建用户-创建项目" class="headerlink" title="添加组,创建用户,创建项目"></a>添加组,创建用户,创建项目</h2><ul><li>先创建组</li><li>再创建项目</li><li>新建用户<ul><li>点击扳手 再点击User 再点击New User</li></ul></li><li>修改用户<ul><li>点击edit 修改密码</li><li>username xwj password xwj123456</li><li>点击Groups 选择项目 点击Members<br><img src="/../../img/GitLab%E5%88%9D%E5%A7%8B%E5%8C%96/1.png"><br><img src="/../../img/GitLab%E5%88%9D%E5%A7%8B%E5%8C%96/2.png"><br><img src="/../../img/GitLab%E5%88%9D%E5%A7%8B%E5%8C%96/3.png"><br><img src="/../../img/GitLab%E5%88%9D%E5%A7%8B%E5%8C%96/4.png"></li></ul></li><li>切换刚才创建的用户进行登录</li></ul><h2 id="源码上传到GitLab仓库"><a href="#源码上传到GitLab仓库" class="headerlink" title="源码上传到GitLab仓库"></a>源码上传到GitLab仓库</h2><ul><li>先在本地初始化一个仓库 git init</li><li>添加代码</li><li>提交git库  git remote add origin <a href="http://192.168.31.100:82/g109/web_demo.git">http://192.168.31.100:82/g109/web_demo.git</a></li><li>添加文件夹所有文件  git add .</li><li>提交代码  git commit -m “xxxx”</li><li>推送代码  git push -u origin master<ul><li>首次时会出现要输入用户名密码的情况 如图<br><img src="/../../img/GitLab%E5%88%9D%E5%A7%8B%E5%8C%96/5.png"></li><li>后续改动则只需要<ul><li>git add .</li><li>git commit -m “xxxx”</li><li>git push</li></ul></li></ul></li></ul><h2 id="小坑"><a href="#小坑" class="headerlink" title="小坑"></a>小坑</h2><ul><li>policycoreutils-python 被 gitlab-ce-12.4.2-ce.0.el7.x86_64 需要<ul><li>yum install policycoreutils-python -y</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CentOS 7初始化</title>
       <link href="/2022/07/30/%E5%8D%9A%E5%AE%A2/CentOS%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
       <url>/2022/07/30/%E5%8D%9A%E5%AE%A2/CentOS%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
@@ -20,7 +45,7 @@
       
         <tags>
             
-            <tag> Utils </tag>
+            <tag> Jenkins </tag>
             
         </tags>
       
