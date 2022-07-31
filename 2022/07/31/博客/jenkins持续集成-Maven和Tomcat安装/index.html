@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Jenkins环境配置 | 艾斯德斯</title><meta name="keywords" content="Jenkins"><meta name="author" content="XWJ"><meta name="copyright" content="XWJ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Maven和Tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins环境配置">
+<meta property="og:url" content="http://example.com/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="艾斯德斯">
+<meta property="og:description" content="Maven和Tomcat">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-3.jpg">
+<meta property="article:published_time" content="2022-07-31T12:41:14.123Z">
+<meta property="article:modified_time" content="2022-07-31T00:00:00.000Z">
+<meta property="article:author" content="XWJ">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-3.jpg"><link rel="shortcut icon" href="/img/%E5%A4%B4%E5%83%8F/1.png"><link rel="canonical" href="http://example.com/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jenkins环境配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-31 08:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/%E5%A4%B4%E5%83%8F/toxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-3.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">艾斯德斯</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Jenkins环境配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-31T12:41:14.123Z" title="发表于 2022-07-31 20:41:14">2022-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-31T00:00:00.000Z" title="更新于 2022-07-31 08:00:00">2022-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">419</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Jenkins环境配置"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Maven安装和配置"><a href="#Maven安装和配置" class="headerlink" title="Maven安装和配置"></a>Maven安装和配置</h1><h2 id="Maven下载"><a href="#Maven下载" class="headerlink" title="Maven下载"></a>Maven下载</h2><p><a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
+<h3 id="服务器解压安装"><a href="#服务器解压安装" class="headerlink" title="服务器解压安装"></a>服务器解压安装</h3><p>tar -xzf apache-maven-3.8.6-bin.tar.gz</p>
+<h3 id="创建目录-移动到该目录下"><a href="#创建目录-移动到该目录下" class="headerlink" title="创建目录 移动到该目录下"></a>创建目录 移动到该目录下</h3><p>mkdir &#x2F;opt&#x2F;maven<br>mv apache-maven-3.8.6&#x2F;* &#x2F;opt&#x2F;maven</p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><ul>
+<li>修改文件 vim &#x2F;etc&#x2F;profile</li>
+<li>配置JDK和MAVEN和PATH及bin目录<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk</span><br><span class="line">export MAVAN_HOME=/opt/maven</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$MAVAN_HOME/bin</span><br></pre></td></tr></table></figure></li>
+<li>配置生效 查看版本<br>source &#x2F;etc&#x2F;profile<br>mvn -v</li>
+</ul>
+<h2 id="全局工具配置管理JDK和Maven"><a href="#全局工具配置管理JDK和Maven" class="headerlink" title="全局工具配置管理JDK和Maven"></a>全局工具配置管理JDK和Maven</h2><p>Global Tool Configuration</p>
+<ul>
+<li>配置JDK<br><img src="/../../img/Jenkins/18.png"></li>
+<li>配置Maven<br><img src="/../../img/Jenkins/19.png"></li>
+</ul>
+<p>Configure System</p>
+<ul>
+<li>全局属性<br><img src="/../../img/Jenkins/20.png"></li>
+</ul>
+<h2 id="修改Maven的Setting-xml的下载地址为阿里云地址"><a href="#修改Maven的Setting-xml的下载地址为阿里云地址" class="headerlink" title="修改Maven的Setting.xml的下载地址为阿里云地址"></a>修改Maven的Setting.xml的下载地址为阿里云地址</h2><p>mkdir &#x2F;root&#x2F;repo</p>
+<p>vim &#x2F;opt&#x2F;maven&#x2F;conf&#x2F;setting.xml</p>
+<p>修改本地仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;localRepository&gt;/root/repo&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure>
+<p>添加阿里云私服地址</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">&lt;id&gt;allmaven&lt;/id&gt;</span><br><span class="line">&lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">&lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;</span><br><span class="line">&lt;mirrirof&gt;central&lt;/mirrirof&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h2><ul>
+<li>清理打包<br><img src="/../../img/Jenkins/21.png"></li>
+</ul>
+<h1 id="Tomcat安装和配置-102服务器"><a href="#Tomcat安装和配置-102服务器" class="headerlink" title="Tomcat安装和配置  102服务器"></a>Tomcat安装和配置  102服务器</h1><h2 id="安装Tomcat-https-tomcat-apache-org"><a href="#安装Tomcat-https-tomcat-apache-org" class="headerlink" title="安装Tomcat https://tomcat.apache.org/"></a>安装Tomcat <a target="_blank" rel="noopener" href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install java-1.8.0-openjdk* -y</span><br><span class="line">tar -zxf apache-tomcat-8.5.47.tar.gz</span><br><span class="line">mkdir -p /opt/tomcat</span><br><span class="line">mv /root/acache-tomcat-8.5.47/* /opt/tomcat</span><br><span class="line">/opt/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<p><strong>注意关闭防火墙进行访问</strong></p>
+<p><em>192.168.31.102:8080</em></p>
+<h2 id="添加用户角色"><a href="#添加用户角色" class="headerlink" title="添加用户角色"></a>添加用户角色</h2><h3 id="编辑tomcat-users-xml"><a href="#编辑tomcat-users-xml" class="headerlink" title="编辑tomcat-users.xml"></a>编辑tomcat-users.xml</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;tomcat-users&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-script&quot;&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-gui&quot;&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-status&quot;&gt;</span><br><span class="line">    &lt;role username=&#x27;tomcat&#x27; password=&#x27;tomcat&#x27; roles=&#x27;manager-status,mamager-script,manager-gui&#x27;&gt;</span><br><span class="line">&lt;/tomcat-users&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="修改访问配置"><a href="#修改访问配置" class="headerlink" title="修改访问配置"></a>修改访问配置</h3><p>vi &#x2F;opt&#x2F;tomcat&#x2F;webapps&#x2F;manager&#x2F;META-INF&#x2F;content.xml</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">&lt;value className=&quot;org.apache.catalina.valves.RemoteAddrvalve&quot; allow=&quot;127\.\d+.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</span><br><span class="line"><span class="meta prompt_">--&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>shutdown.sh</p>
+<p>startup.sh</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">XWJ</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/">http://example.com/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">艾斯德斯</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Jenkins/">Jenkins</a></div><div class="post_share"><div class="social-share" data-image="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-3.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"><img class="next-cover" src="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Jenkins权限管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/07/30/%E5%8D%9A%E5%AE%A2/CentOS%E5%88%9D%E5%A7%8B%E5%8C%96/" title="CentOS 7初始化"><img class="cover" src="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/CentOS7-1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-30</div><div class="title">CentOS 7初始化</div></div></a></div><div><a href="/2022/07/30/%E5%8D%9A%E5%AE%A2/GitLab%E5%AE%89%E8%A3%85/" title="GitLib安装"><img class="cover" src="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/CentOS7-2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-30</div><div class="title">GitLib安装</div></div></a></div><div><a href="/2022/07/30/%E5%8D%9A%E5%AE%A2/Jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E5%AE%89%E8%A3%85/" title="Jenkins安装"><img class="cover" src="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-30</div><div class="title">Jenkins安装</div></div></a></div><div><a href="/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="Jenkins权限管理"><img class="cover" src="/./img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/Jenkins-2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-31</div><div class="title">Jenkins权限管理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">Maven安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven%E4%B8%8B%E8%BD%BD"><span class="toc-text">Maven下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85"><span class="toc-text">服务器解压安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E7%A7%BB%E5%8A%A8%E5%88%B0%E8%AF%A5%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="toc-text">创建目录 移动到该目录下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86JDK%E5%92%8CMaven"><span class="toc-text">全局工具配置管理JDK和Maven</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9Maven%E7%9A%84Setting-xml%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E5%9C%B0%E5%9D%80"><span class="toc-text">修改Maven的Setting.xml的下载地址为阿里云地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TEST"><span class="toc-text">TEST</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tomcat%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-102%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">Tomcat安装和配置  102服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Tomcat-https-tomcat-apache-org"><span class="toc-text">安装Tomcat https:&#x2F;&#x2F;tomcat.apache.org&#x2F;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2"><span class="toc-text">添加用户角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91tomcat-users-xml"><span class="toc-text">编辑tomcat-users.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%AE%BF%E9%97%AE%E9%85%8D%E7%BD%AE"><span class="toc-text">修改访问配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF"><span class="toc-text">重启</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2022 By XWJ</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://github.com/FD982459474">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"top","width":200,"height":400},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

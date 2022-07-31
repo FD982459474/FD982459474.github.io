@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Jenkins环境配置</title>
+      <link href="/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/"/>
+      <url>/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-Maven%E5%92%8CTomcat%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Maven安装和配置"><a href="#Maven安装和配置" class="headerlink" title="Maven安装和配置"></a>Maven安装和配置</h1><h2 id="Maven下载"><a href="#Maven下载" class="headerlink" title="Maven下载"></a>Maven下载</h2><p><a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p><h3 id="服务器解压安装"><a href="#服务器解压安装" class="headerlink" title="服务器解压安装"></a>服务器解压安装</h3><p>tar -xzf apache-maven-3.8.6-bin.tar.gz</p><h3 id="创建目录-移动到该目录下"><a href="#创建目录-移动到该目录下" class="headerlink" title="创建目录 移动到该目录下"></a>创建目录 移动到该目录下</h3><p>mkdir &#x2F;opt&#x2F;maven<br>mv apache-maven-3.8.6&#x2F;* &#x2F;opt&#x2F;maven</p><h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><ul><li>修改文件 vim &#x2F;etc&#x2F;profile</li><li>配置JDK和MAVEN和PATH及bin目录<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk</span><br><span class="line">export MAVAN_HOME=/opt/maven</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$MAVAN_HOME/bin</span><br></pre></td></tr></table></figure></li><li>配置生效 查看版本<br>source &#x2F;etc&#x2F;profile<br>mvn -v</li></ul><h2 id="全局工具配置管理JDK和Maven"><a href="#全局工具配置管理JDK和Maven" class="headerlink" title="全局工具配置管理JDK和Maven"></a>全局工具配置管理JDK和Maven</h2><p>Global Tool Configuration</p><ul><li>配置JDK<br><img src="/../../img/Jenkins/18.png"></li><li>配置Maven<br><img src="/../../img/Jenkins/19.png"></li></ul><p>Configure System</p><ul><li>全局属性<br><img src="/../../img/Jenkins/20.png"></li></ul><h2 id="修改Maven的Setting-xml的下载地址为阿里云地址"><a href="#修改Maven的Setting-xml的下载地址为阿里云地址" class="headerlink" title="修改Maven的Setting.xml的下载地址为阿里云地址"></a>修改Maven的Setting.xml的下载地址为阿里云地址</h2><p>mkdir &#x2F;root&#x2F;repo</p><p>vim &#x2F;opt&#x2F;maven&#x2F;conf&#x2F;setting.xml</p><p>修改本地仓库</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;localRepository&gt;/root/repo&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure><p>添加阿里云私服地址</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">&lt;id&gt;allmaven&lt;/id&gt;</span><br><span class="line">&lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">&lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;</span><br><span class="line">&lt;mirrirof&gt;central&lt;/mirrirof&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure><h2 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h2><ul><li>清理打包<br><img src="/../../img/Jenkins/21.png"></li></ul><h1 id="Tomcat安装和配置-102服务器"><a href="#Tomcat安装和配置-102服务器" class="headerlink" title="Tomcat安装和配置  102服务器"></a>Tomcat安装和配置  102服务器</h1><h2 id="安装Tomcat-https-tomcat-apache-org"><a href="#安装Tomcat-https-tomcat-apache-org" class="headerlink" title="安装Tomcat https://tomcat.apache.org/"></a>安装Tomcat <a href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install java-1.8.0-openjdk* -y</span><br><span class="line">tar -zxf apache-tomcat-8.5.47.tar.gz</span><br><span class="line">mkdir -p /opt/tomcat</span><br><span class="line">mv /root/acache-tomcat-8.5.47/* /opt/tomcat</span><br><span class="line">/opt/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure><p><strong>注意关闭防火墙进行访问</strong></p><p><em>192.168.31.102:8080</em></p><h2 id="添加用户角色"><a href="#添加用户角色" class="headerlink" title="添加用户角色"></a>添加用户角色</h2><h3 id="编辑tomcat-users-xml"><a href="#编辑tomcat-users-xml" class="headerlink" title="编辑tomcat-users.xml"></a>编辑tomcat-users.xml</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;tomcat-users&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-script&quot;&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-gui&quot;&gt;</span><br><span class="line">    &lt;role rolename=&quot;manager-status&quot;&gt;</span><br><span class="line">    &lt;role username=&#x27;tomcat&#x27; password=&#x27;tomcat&#x27; roles=&#x27;manager-status,mamager-script,manager-gui&#x27;&gt;</span><br><span class="line">&lt;/tomcat-users&gt;</span><br></pre></td></tr></table></figure><h3 id="修改访问配置"><a href="#修改访问配置" class="headerlink" title="修改访问配置"></a>修改访问配置</h3><p>vi &#x2F;opt&#x2F;tomcat&#x2F;webapps&#x2F;manager&#x2F;META-INF&#x2F;content.xml</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">&lt;value className=&quot;org.apache.catalina.valves.RemoteAddrvalve&quot; allow=&quot;127\.\d+.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</span><br><span class="line"><span class="meta prompt_">--&gt;</span></span><br></pre></td></tr></table></figure><h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p>shutdown.sh</p><p>startup.sh</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Jenkins权限管理</title>
       <link href="/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
       <url>/2022/07/31/%E5%8D%9A%E5%AE%A2/jenkins%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</url>
